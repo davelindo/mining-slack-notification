@@ -3,6 +3,7 @@ import os
 
 slack_webhook = os.environ['SLACK_WEBHOOK']
 
+
 def slack_notification(slack_webhook, message):
     slack_data = {'text': message}
     request = urllib2.Request(slack_webhook)
@@ -12,12 +13,15 @@ def slack_notification(slack_webhook, message):
     except:
         print "Failed to connect to slack!"
 
+
 def build_message():
-    message = """Instance %s started Mining""" % (os.popen("curl -s http://169.254.169.254/latest/meta-data/instance-id").read())
+    message = """Instance %s started Mining""" % (
+        os.popen("curl -s http://169.254.169.254/latest/meta-data/instance-id").read())
+
 
 def main(event, context):
     message = build_message()
-    slack_notification(slack_webhook,build_message())
+    slack_notification(slack_webhook, build_message())
 
 if __name__ == '__main__':
     main('blah', 'blah')
