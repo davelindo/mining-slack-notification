@@ -18,10 +18,10 @@ def slack_notification(slack_webhook, message):
 def build_message():
     message = """Instance %s started Mining""" % (
         os.popen("curl -s http://169.254.169.254/latest/meta-data/instance-id").read())
+    return message
 
 
 def main(event, context):
-    message = build_message()
     slack_notification(slack_webhook, build_message())
 
 if __name__ == '__main__':
